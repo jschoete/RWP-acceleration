@@ -1,0 +1,4 @@
+rootProject.name = 'rwp-acceleration'
+include 'app'
+findProject(':app')?.name = 'rwp-acceleration'
+
