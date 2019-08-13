@@ -8,8 +8,8 @@ import io.jbotsim.core.event.CommandListener;
 import io.jbotsim.ui.JViewer;
 import io.jbotsim.ui.painting.BackgroundPainter;
 import io.jbotsim.ui.painting.UIComponent;
-//import video.JBackgroundPainterHD;
-//import video.VideoHelper;
+import video.JBackgroundPainterHD;
+import video.VideoHelper;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Main implements CommandListener, ClockListener, BackgroundPainter {
     Topology tp;
-//    private RenderingHints rh ;
+    private RenderingHints rh ;
     io.jbotsim.core.Point startPoint = new io.jbotsim.core.Point(500,400);
     static List<io.jbotsim.core.Point> visit_order = new ArrayList<>();
     static List<io.jbotsim.core.Point> trajectory_locations = new ArrayList<>();
@@ -37,16 +37,16 @@ public class Main implements CommandListener, ClockListener, BackgroundPainter {
 
     public Main() {
         //Display
-//        rh = new RenderingHints(
-//                RenderingHints.KEY_ANTIALIASING,
-//                RenderingHints.VALUE_ANTIALIAS_ON);
-//        rh.add(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED));
-//        VideoHelper.useOpenGL();
-//        tp = VideoHelper.generateTopology();
+        rh = new RenderingHints(
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        rh.add(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED));
+        VideoHelper.useOpenGL();
+        tp = VideoHelper.generateTopology();
         tp.setTimeUnit(5);
         tp.addClockListener(this);
         JViewer jv = new JViewer(tp);
-//        jv.getJTopology().setDefaultBackgroundPainter(new JBackgroundPainterHD());
+        jv.getJTopology().setDefaultBackgroundPainter(new JBackgroundPainterHD());
 
         //Initialization
         resolution = 0.35 * VectorNode.DEVIATION;
@@ -152,7 +152,7 @@ public class Main implements CommandListener, ClockListener, BackgroundPainter {
     @Override
     public void paintBackground(UIComponent uiComponent, Topology topology) {
         Graphics2D g2d = (Graphics2D) uiComponent.getComponent();
-//        g2d.setRenderingHints(rh);
+        g2d.setRenderingHints(rh);
         try {
             Color c = new Color(0, 0, 0);  //black color
             int g = 0;
@@ -184,6 +184,8 @@ public class Main implements CommandListener, ClockListener, BackgroundPainter {
         if (command.equals(command_precompute)){
             //Precomputation trajectory
             System.out.println("Precomputing trajectory, please wait...");
+            this.tp.start();
+            this.tp.pause();
             trajectory_locations = Inter_check_2BFS.getTrajectory(visit_order, startPoint, tp, resolution, 9);
             System.out.println("Done ! click 'Start execution' in JBotSim window !");
 
