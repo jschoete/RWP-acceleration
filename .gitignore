@@ -1,0 +1,4 @@
+*.log
+remarques_remi.md
+.idea/*
+app/out/*

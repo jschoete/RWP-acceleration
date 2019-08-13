@@ -22,7 +22,7 @@ import java.util.List;
  * and a realistic drone trying to visit these nodes according to some acceleration constraints.
  */
 public class Main implements CommandListener, ClockListener, BackgroundPainter {
-    Topology tp;
+    Topology tp = new Topology(1000, 800);
 //    private RenderingHints rh ;
     io.jbotsim.core.Point startPoint = new io.jbotsim.core.Point(500,400);
     static List<io.jbotsim.core.Point> visit_order = new ArrayList<>();
