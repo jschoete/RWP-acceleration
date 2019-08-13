@@ -184,8 +184,6 @@ public class Main implements CommandListener, ClockListener, BackgroundPainter {
         if (command.equals(command_precompute)){
             //Precomputation trajectory
             System.out.println("Precomputing trajectory, please wait...");
-            this.tp.start();
-            this.tp.pause();
             trajectory_locations = Inter_check_2BFS.getTrajectory(visit_order, startPoint, tp, resolution, 9);
             System.out.println("Done ! click 'Start execution' in JBotSim window !");
 
